@@ -10,9 +10,9 @@
 		"default_popup": "popup.html" 
 	},
 	"icons": { 
-		"16": "zipysplit_32.png",
-		"48": "zipysplit_48.png",
-		"128": "zipysplit_128.png" 
+		"16": "Images/zipysplit_32.png",
+		"48": "Images/zipysplit_48.png",
+		"128": "Images/zipysplit_128.png" 
 	},
 	"content_scripts": [
 		{
