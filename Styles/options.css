@@ -1,0 +1,175 @@
+body
+{
+    font-family: Arial, Helvetica, sans-serif;
+}
+h1
+{
+    margin-left: 5%;
+    font-size: 50px;
+    text-shadow: 1px 1px 0 #fff;
+    color: #404040;
+}
+input
+{
+    display: inline-block;
+    -webkit-border-radius: 3px;
+    border-style: none;
+    outline-color: #66CCFF;
+    /*outline-style:none;*/
+    padding: 3px;
+    -webkit-box-shadow: 0 0px 1px #555555;
+}
+input:focus
+{
+    -webkit-box-shadow: 0 0px 10px #66CCFF;
+}
+label
+{
+    display: inline-block;
+    width: 100px;
+    text-align: right;
+    margin-left: 10px;
+}
+input, label
+{
+    margin-top: 5px;
+}
+.warning
+{
+    background-image: url("warning.png");
+    width: 24px;
+    height: 20px;
+    display: inline-block;
+    background-repeat: no-repeat;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#keyboard
+{
+    -webkit-border-radius: 5px;
+    background-color: #615F63;
+    padding: 10px;
+    width: 600px;
+    height: 165px;
+    display:none;
+    position:absolute;
+}
+#top_row
+{
+    margin-bottom: 8px;
+}
+#keyboard .key, #keyboard .s_key, #keyboard .f_key
+{
+    padding-top: 2px;
+    display: inline-block;
+    margin: 2px;
+    -webkit-box-shadow: 0 0 4px #000;
+    -webkit-border-radius: 3px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    color: #000000;
+    background-color: #FFFFFF;
+    text-align: center;
+    cursor:pointer;
+}
+#keyboard .key:hover, #keyboard .s_key:hover, #keyboard .f_key:hover
+{
+    -webkit-box-shadow: 0 0 2px #222;
+    background-color: #CCCCCC;
+}
+
+#keyboard .key
+{
+    width: 30px;
+}
+#keyboard .key, #keyboard .s_key
+{
+    height: 20px;
+}
+#keyboard .f_key
+{
+    width: 35px;
+    height: 17px;
+}
+#keyboard .key_gap
+{
+    display: inline-block;
+    width: 9px;
+}
+#Esc
+{
+    width:40px;
+}
+#Backspace
+{
+    width: 100px;
+}
+#Enter
+{
+    width: 60px;
+}
+#L_Shift
+{
+    width: 50px;
+}
+#R_Shift
+{
+    width: 120px;
+}
+#Tab
+{
+    width: 60px;
+}
+#Caps_Lock
+{
+    width: 72px;
+}
+#Menu
+{
+    width: 40px;
+}
+#R_Ctrl, #L_Ctrl
+{
+    width: 50px;
+}
+#L_Win, #R_Win
+{
+    width: 40px;
+}
+#Alt, #Alt_Gr
+{
+    width: 50px;
+}
+#Space
+{
+    width: 220px;
+}

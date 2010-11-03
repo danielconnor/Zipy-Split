@@ -1,0 +1,79 @@
+body
+{
+    width: 235px;
+}
+.download
+{
+}
+.download.separate
+{
+    border-top-style: dotted;
+    border-top-width: thin;
+    border-color: #000000;
+    padding-top: 10px;
+}
+progress::-webkit-progress-bar-value
+{
+    background-color: #6699FF;
+    -webkit-border-radius: 3px;
+}
+progress
+{
+    -webkit-border-radius: 3px;
+    -webkit-appearance: progress-bar;
+    background-color: #808080;
+    display: inline-block;
+    height: 22px;
+    width: 200px;
+    vertical-align: 0;
+    display: inline-block;
+}
+progress, .btn
+{
+    margin: 2px 3px;
+}
+.btn
+{
+    width: 22px;
+    height: 22px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    -webkit-border-radius: 4px;
+    -webkit-box-shadow: 0 0 3px #000;
+    display: inline-block;
+    cursor: pointer;
+    -webkit-transition: background-color 0.1s linear;
+    background-color: #fff;
+}
+.pause.btn
+{
+    background-image: url("pause.png");
+}
+.resume.btn
+{
+    background-image: url("resume.png");
+}
+.pause.btn:hover
+{
+    background-color: #FF6600;
+}
+.resume.btn:hover
+{
+    background-color: #55990B;
+}
+h1.filename
+{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    margin: 0;
+    padding: 3px 0;
+}
+p.url
+{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+}
+.hidden
+{
+    display:none;
+}

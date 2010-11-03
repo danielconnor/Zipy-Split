@@ -1,0 +1,85 @@
+﻿<html>
+<head>
+    <title>File Viewer</title>
+    <script type="text/javascript" src="Scripts/common.js"></script>
+    <script type="text/javascript" src="Scripts/dextend.js"></script>
+    <script type="text/javascript" src="Scripts/file-viewer.js"></script>
+    <link rel="Stylesheet" type="text/css" href="Styles/file-viewer.css" />
+    <script type="text/javascript">
+        var browser;
+        var progress;
+        var bg;
+        function onload() {
+            bg = chrome.extension.getBackgroundPage();
+            if (sessionStorage.url) {
+                createBrowser(bg.zipFiles[sessionStorage.url]);
+                if (sessionStorage.folder) {
+                    browser.openFolder(sessionStorage.folder);
+                }
+            }
+            else {
+                progress = new ProgressIndicator();
+                chrome.extension.onRequest.addListener(function (request, sender) {
+                    switch (request.type) {
+                        case "new":
+                            sessionStorage.url = request.file.url;
+                            createBrowser(request.file);
+                            progress.stop();
+                            break;
+                    }
+                });
+            }
+        }
+
+        function createBrowser(file) {
+            browser = new fileBrowser(file, function () {
+                bg.zipFiles[file.url].downloadFiles(this.filesToDownload,bg.plugin);
+            });
+        }
+        function ProgressIndicator() {
+            var that = this;
+            this.progress = 20;
+            this.timeout;
+
+            this.advance = function () {
+                document.body.style["background-image"] = "url('zip/z" + that.progress + ".png')";
+                that.progress--;
+                if (that.progress > 0) {
+                    that.timeout = setTimeout(that.advance, 100);
+                }
+            }
+            this.stop = function () {
+                clearTimeout(that.timeout);
+                document.body.style["background-image"] = "none";
+            }
+            this.advance();
+        }
+    </script>
+</head>
+<body onload="onload();">
+    <div id="view">
+        <div id='tools'>
+            <div id='addressBar'>
+            </div>
+            <div id='viewOptions'>
+                <div class='btn' id='up' title='Up a level'>
+                </div>
+                <div class='btn' id='back' title='back'>
+                </div>
+                <div class='btn' id='select' title='Select all files'>
+                </div>
+                <div class='btn' id='cancel' title='cancel'>
+                </div>
+                <div class='btn' id='download' title='download'>
+                </div>
+            </div>
+        </div>
+        <div id='content'>
+            <div id='/~contents'>
+            </div>
+        </div>
+        <div id='fileDetails'>
+        </div>
+    </div>
+</body>
+</html>

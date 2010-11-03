@@ -1,0 +1,37 @@
+{
+	"name": "Zipy Split",
+	"version": "0.5",
+	"description": "Zip Split allows you to download parts of a zip archive",
+	"options_page": "options.html",
+	"background_page": "background.html",
+	"browser_action": {
+		"default_icon": "zipsplit_32.png",
+		"default_title": "Zip Split",
+		"default_popup": "popup.html" 
+	},
+	"icons": { 
+		"16": "zipysplit_32.png",
+		"48": "zipysplit_48.png",
+		"128": "zipysplit_128.png" 
+	},
+	"content_scripts": [
+		{
+			"matches": [ "http://*/*", "https://*/*" ],
+			"js": ["Scripts/dextend.js","Scripts/content-script.js"],
+			"css": ["Styles/content-style.css"],
+			"run_at": "document_end",
+			"all_frames":false
+		}
+	],
+	"plugins": [
+    { "path": "npruntime.dll"}
+	  ],
+	"permissions": [
+		"unlimited_storage",
+		"http://*/*", 
+		"https://*/*",
+		"notifications",
+		"contextMenus",
+		"tabs"
+	]
+}

@@ -1,0 +1,66 @@
+﻿<html>
+<head>
+    <script type="text/javascript" src="Scripts/common.js"></script>
+    <script type="text/javascript" src="Scripts/zip-file.js"></script>
+</head>
+<body>
+    <embed type="application/x-zipy" id="plugin" />
+    <script type="text/javascript">
+
+        if (!localStorage["run"]) {
+            localStorage["run"] = true;
+            loadDefaultSettings();
+        }
+        var plugin = document.getElementById("plugin");
+        plugin.setErrorFunc("alert");
+        chrome.extension.onRequest.addListener(
+          function (request, sender, response) {
+              switch (request.type) {
+                  case "new":
+                      chrome.tabs.create({ url: "file-viewer.html" }, function (tab) {
+                          if (!zipFiles[request.url]) {
+                              zipFiles[request.url] = new ZipFile({
+                                  url: request.url,
+                                  plugin:plugin,
+                                  onInfoLoad: function () {
+                                      chrome.tabs.sendRequest(tab.id, { type: "new", file: this });
+                                  },
+                                  onLoad: function () {
+                                  },
+                                  onComplete: function () {
+                                      var that = this;
+                                      var notification = webkitNotifications.createNotification(
+                                          "zipsplit_48.png",  // icon url - can be relative
+                                          "Download Complete",  // notification title
+                                          that.url  // notification body text
+                                      );
+                                      notification.show();
+                                  }
+                              });
+                          }
+                          else {
+                              var openFiles = chrome.extension.getViews({
+                                  type: "tab"
+                              });
+                              for (var i = 0; i < openFiles; i++) {
+                                  if (openFiles[i].browser.file = zipFiles[request.url]) { 
+                                    
+                                  }
+                              }
+                              chrome.tabs.sendRequest(tab.id, { type: "new", file: zipFiles[request.url] });
+                          }
+                      });
+                      break;
+                  default:
+                      log("there was no valid type supplied in the request");
+              }
+          });
+          function download(fileList, url) {
+              zipFiles[url].downloadFiles(fileList, plugin);
+          }
+          function loadDefaultSettings() {
+               
+          }
+    </script>
+</body>
+</html>
