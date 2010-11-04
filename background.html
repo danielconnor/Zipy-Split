@@ -6,7 +6,7 @@
 <body>
     <embed type="application/x-zipy" id="plugin" />
     <script type="text/javascript">
-
+        var zipFiles = [];
         if (!localStorage["run"]) {
             localStorage["run"] = true;
             loadDefaultSettings();
@@ -30,7 +30,7 @@
                                   onComplete: function () {
                                       var that = this;
                                       var notification = webkitNotifications.createNotification(
-                                          "zipsplit_48.png",  // icon url - can be relative
+                                          "Images/zipysplit_48.png",  // icon url - can be relative
                                           "Download Complete",  // notification title
                                           that.url  // notification body text
                                       );

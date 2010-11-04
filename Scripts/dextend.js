@@ -23,6 +23,8 @@ Element.prototype.removeClass = function (className) {
             if (classNames[i] != className) {
                 newClassName += classNames[i] + " ";
             }
+        }
+        if (classNames[i] != className) {
             newClassName += classNames[i];
         }
         this.className = newClassName.trim();
