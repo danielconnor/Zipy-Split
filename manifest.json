@@ -5,7 +5,7 @@
 	"options_page": "options.html",
 	"background_page": "background.html",
 	"browser_action": {
-		"default_icon": "zipsplit_32.png",
+		"default_icon": "Images/zipsplit_32.png",
 		"default_title": "Zip Split",
 		"default_popup": "popup.html" 
 	},
