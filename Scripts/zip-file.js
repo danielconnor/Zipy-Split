@@ -1,4 +1,4 @@
-var source = "zip-file.js";// for error handling
+var source = "zip-file.js"; // for error handling
 
 //signatures
 var EOCD = ['50', '4b', '01', '02']; //end of central directory
@@ -46,20 +46,20 @@ fileHeaderLayout = {
 
 
 function ZipFile(params) {
-    var that   = this;
-    this.url   = params.url;
+    var that = this;
+    this.url = params.url;
     this.files = [];
     this.endCentralDirectory = null;
     this.fileSize = null;
 
     //callbacks
-    this.onLoad     = params.onLoad;
+    this.onLoad = params.onLoad;
     this.onInfoLoad = params.onInfoLoad;
     this.onFileLoad = params.onFileLoad;
     this.onComplete = params.onComplete;
 
     this.status = DownloadStatus.notInitialised;
-    this.filename = window.unescape(this.url.split("/").pop()); 
+    this.filename = window.unescape(this.url.split("/").pop());
 
 
     this.getFileSize = function (callback) {
@@ -133,7 +133,7 @@ function ZipFile(params) {
         data = convertData(data);
 
         //support for files such as crx which use the zip file structure but have
-        //data prepende on the the start. This upsets the offsets stored in the headers
+        //data prepended at the start. This upsets the offsets stored in the headers
         //so we have to account for that and search for the first header.
         var errorOffset = indexOf(data, EOCD);
         var offset = errorOffset;
@@ -192,7 +192,7 @@ function ZipFile(params) {
             that.onComplete();
         }
     };
-    
+
     //we begin by getting the file size
     this.getFileSize(that.beginDownload);
 }

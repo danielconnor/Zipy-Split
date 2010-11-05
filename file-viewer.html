@@ -9,13 +9,17 @@
         var browser;
         var progress;
         var bg;
+        var zipySplit;
         function onload() {
             bg = chrome.extension.getBackgroundPage();
+            zipySplit = bg.zipySplit;
+
             if (sessionStorage.url) {
-                createBrowser(bg.zipFiles[sessionStorage.url]);
-                if (sessionStorage.folder) {
-                    browser.openFolder(sessionStorage.folder);
-                }
+                createBrowser(zipySplit.zipFiles[sessionStorage.url], function (fileViewer) {
+                    if (sessionStorage.folder) {
+                        fileViewer.openFolder(sessionStorage.folder);
+                    }
+                });
             }
             else {
                 progress = new ProgressIndicator();
@@ -31,10 +35,10 @@
             }
         }
 
-        function createBrowser(file) {
+        function createBrowser(file,callback) {
             browser = new fileBrowser(file, function () {
-                bg.zipFiles[file.url].downloadFiles(this.filesToDownload,bg.plugin);
-            });
+                zipySplit.zipFiles[file.url].downloadFiles(this.filesToDownload, zipySplit.plugin);
+            },callback);
         }
         function ProgressIndicator() {
             var that = this;

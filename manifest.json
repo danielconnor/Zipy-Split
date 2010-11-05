@@ -14,15 +14,6 @@
 		"48": "Images/zipysplit_48.png",
 		"128": "Images/zipysplit_128.png" 
 	},
-	"content_scripts": [
-		{
-			"matches": [ "http://*/*", "https://*/*" ],
-			"js": ["Scripts/dextend.js","Scripts/content-script.js"],
-			"css": ["Styles/content-style.css"],
-			"run_at": "document_end",
-			"all_frames":false
-		}
-	],
 	"plugins": [
     { "path": "npruntime.dll"}
 	  ],

@@ -7,15 +7,16 @@
     <script type="text/javascript" src="scripts/history.js"></script>
     <script type="text/javascript">
         var bg = chrome.extension.getBackgroundPage();
+        var zipySplit = bg.zipySplit;
         function init() {
             update();
             setInterval(update, 100);
         }
         function update() {
             var fileCount = 0;
-            for (var file in bg.zipFiles) {
+            for (var file in zipySplit.zipFiles) {
                 fileCount++;
-                var curFile = bg.zipFiles[file];
+                var curFile = zipySplit.zipFiles[file];
                 var download = document.getElementById(file);
                 if (!download) {
                     download = document.createElement("div");
@@ -27,14 +28,14 @@
                     }
                     var pause = download.querySelector(".pause");
                     pause.onclick = function () {
-                        var zipFile = bg.zipFiles[file];
+                        var zipFile = zipySplit.zipFiles[file];
                         if (zipFile.status == DownloadStatus.downloading) {
                             this.swapClass("pause", "resume");
-                            zipFile.pauseDownload(bg.plugin);
+                            zipFile.pauseDownload(zipySplit.plugin);
                         }
                         else if (zipFile.status == DownloadStatus.paused) {
                             this.swapClass("resume", "pause");
-                            zipFile.resumeDownload(bg.plugin);
+                            zipFile.resumeDownload(zipySplit.plugin);
                         }
                     };
                     document.getElementById("current").appendChild(download);
@@ -42,7 +43,7 @@
                 var progElem = download.querySelector("progress");
 
                 if (curFile.status == DownloadStatus.downloading || curFile.status == DownloadStatus.paused) {
-                    progElem.value = curFile.getProgress(bg.plugin);
+                    progElem.value = curFile.getProgress(zipySplit.plugin);
                     download.querySelector(".progress").removeClass("hidden");
                 }
                 else if (curFile.status == DownloadStatus.finished) {

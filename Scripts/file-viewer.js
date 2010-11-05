@@ -1,8 +1,9 @@
 var source = "zip-file.js"; // for error handling
 
 //file browser for browsing zip files
-function fileBrowser(file, onDownload,callback) {
+function fileBrowser(file, onDownload, callback) {
     var that = this;
+
     var contentSuffix = "~contents";
     this.currentFolder = '/';
     this.onDownload = onDownload;
@@ -10,6 +11,7 @@ function fileBrowser(file, onDownload,callback) {
     this.filesToDownload = [];
     this.history = [];
     this.file = file;
+
     this.generateFileStructure = function () {
         for (i in file.files) {
             var fileName = file.files[i].fileName.split('/');
@@ -26,7 +28,7 @@ function fileBrowser(file, onDownload,callback) {
                         parent = document.getElementById(currentFolderName + contentSuffix);
                     }
                     currentFile = document.createElement('div');
-                    if (p == fileName.length - 1 && file.files[i].fileName[file.files[i].fileName.length -1] != '/') {
+                    if (p == fileName.length - 1 && file.files[i].fileName[file.files[i].fileName.length - 1] != '/') {
                         currentFile.id = currentFolderName + fileName[p];
                         type = 'file';
                         var dot = fileName[p].lastIndexOf('.');
@@ -289,6 +291,8 @@ function fileBrowser(file, onDownload,callback) {
         }
     });
     this.addressBar = new addressBar(this, document.getElementById("addressBar"));
+    if (callback)
+        callback(this);
 }
 
 
@@ -374,7 +378,7 @@ function dragSelect(fileBrowser) {
     var boxId = "selection-box";
     this.dragging = false;
     this.fileBrowser = fileBrowser;
-    this.view =  document.getElementById("content");
+    this.view = document.getElementById("content");
     this.box;
     function Point(x, y) {
         this.x = x;
@@ -447,7 +451,7 @@ function dragSelect(fileBrowser) {
         var bottomY = document.body.clientHeight - parseInt(that.box.style.bottom);
         return ((file.offsetTop > topY &&
                  file.offsetLeft > leftX &&
-                 file.offsetTop <  bottomY &&
+                 file.offsetTop < bottomY &&
                  file.offsetLeft < rightX)
                  ||
                 (file.offsetTop + file.clientHeight > topY &&
@@ -474,13 +478,13 @@ function dragSelect(fileBrowser) {
             if (that.checkBounds(curFile)) {
                 that.fileBrowser.selectFile(curFile);
             }
-            else if(!ctrlKey){
+            else if (!ctrlKey) {
                 that.fileBrowser.deSelectFile(curFile);
             }
         }
     };
-    
-    
+
+
 }
 function time(timestamp) {
     timestamp = timestamp.toString(2);
