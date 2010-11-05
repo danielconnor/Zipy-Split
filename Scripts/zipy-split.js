@@ -23,7 +23,7 @@ var ZipySplit = function (plugin) {
             );
         notification.show();
         setTimeout(function () {
-            notification.close();
+            notification.cancel();
         }, 2000);
     };
 
