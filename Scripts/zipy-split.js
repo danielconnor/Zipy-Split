@@ -60,8 +60,9 @@ var ZipySplit = function (plugin) {
                 console.log("Got expected error: " + chrome.extension.lastError.message);
             }
         });
-
-    this.plugin = plugin;
-    this.plugin.setErrorFunc("alert");
+    if (plugin.setErrorFunc) {
+        this.plugin = plugin;
+        this.plugin.setErrorFunc("alert");
+    }
     this.loadSettings();
 };
