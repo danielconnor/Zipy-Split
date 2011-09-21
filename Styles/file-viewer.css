@@ -15,55 +15,54 @@
 }
 #tools
 {
-    width:960px;
+    width:990px;
     display:block;
     margin:5px auto;
 }
-.btn
-{
-    width:22px;
-    height:22px;
+.btn {
+    width:28px;
+    height:28px;
     background-position:center center;
     background-repeat:no-repeat;
-    -webkit-border-radius: 4px;
-    -webkit-box-shadow: 0 0 3px #000;
-    margin:2px 1px;
+	border-radius: 3px;
+    box-shadow: inset 1px 1px 3px #000;
+    margin:0 1px;
     display:inline-block;
     cursor:pointer;
     -webkit-transition: background-color 0.1s linear;
-    background-color:#fff;
+    background-color: #ccc;
+	position: relative;
 }
+	.btn:after {
+		content: "";
+		box-shadow: 1px 1px 4px #000;
+		top: 50%;
+		left: 50%;
+		margin-left: -10px;
+		margin-top: -10px;
+		height: 20px;
+		width: 20px;
+		border-radius: 2px;
+		display:block;
+		position:absolute;
+	}
 #viewOptions
 {
-    display:inline-block;
+    display:block;
+	float:left;
+	height: 28px;
 }
-#back
+#download:after
 {
-    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAADEtGw7AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADgSURBVEhLY2AYBQRCQAEoXw/E96EYxAaJUQR4gLqnA/EPIP4PxU+BdAJFpgI1x6AZCjO8gRKDQd4FuQ5mGIz+SYmLQYaux2IoyPAz5IYxKFyP4jAU3fXY+F+BepuBmBc9uPSBAv8oMBhkGSi4DGAGM0EZikCakZLIAeplQw4umMEUmompHWYwKCOAvEMJ+AXU/ADdAJpFHsgiBSCmenKD+QBkOFUyCHrkgcKoHJp0kIMLJcaJiQhsqWIDUON8NMOfYYsYfBYwY5EExe5VIP4MDfcPQHouEG8EYhB7FJAWAgDDM2pDWMGSMgAAAABJRU5ErkJggg==);
+    background:#fff url("../Images/down.png") 50% 50% no-repeat;
 }
-#cancel
+#up:after
 {
-    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAADEtGw7AAAAAXNSR0IArs4c6QAAAJ1JREFUOMvVlMEJgDAMRR9O4EgdwGHctAN0CA8FD170koJoEhWM4Idc6s/DJk3gzxqADKxAAUagd/y9eIrkZGGc1KAtFkm0NIpnn5M146rEDCTFm+SblnNSMYzTAZ7kTPOWu1c7wj2oWbrWDOuKVcIq2VWz3b+6UyregD+C7uHVgVYP2n09hSGleL15Yc8tbEDCRjpsCYWtzbBF/w9tii/JG+w7B9sAAAAASUVORK5CYII=);
+    background:#fff url("../Images/up.png") 50% 50% no-repeat;
 }
-#download
+#select:after
 {
-    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAADEtGw7AAAAAXNSR0IArs4c6QAAAMpJREFUOMvtlU0KwjAQhT/FZbxDxIt4EO/iwkO49Qa9ght3vUJpNjmBFppN62YKQdq0MZYiOPAIM8x7yWTyA79mqwk5W2APaPENUACP1MnPgANagZNYslWeaIfqG1vRfsJdz9W8v/D8wps3XwMHGQ1wC3D7cs1Q8gmw3kXIe85wh9y7OFa4g1YGhMZQLtK8q5QXa064wYZcgDpiC2rh6LHZFXD0mhiClVwVU54GsoBoNmWVIfE70HiCjcR06rOp5AfZeUeyAJ6L/HkvvFddgOObkTYAAAAASUVORK5CYII=);
-}
-#up
-{
-    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAADEtGw7AAAAAXNSR0IArs4c6QAAAMlJREFUOMvtlUEKwjAQRZ+u4x1SvIgH8S69Qbdue4NewY3LHkGSTb2AIsVF62YCIUhIWqsgDnyShpnXtORnYKFYJeQoYAsU8myAM3Cb82INnIABGEWDrOk50MYDhmpy4QrYA10E6tRJrkrZ5QHoE6BOvdREd19mQn14GQObCVAn44PWS53jEFwDF5k/gDZS20oOUlPHDKKBnYwWOIaf6EXxItfmOG+c4tqP/eM/+Dvge+JaNrjyjOCMU72jg2ykg7jby0oHufJT8QSVfVyBoxy7ZQAAAABJRU5ErkJggg==);
-}
-#select
-{
-    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAADEtGw7AAAAAXNSR0IArs4c6QAAADdJREFUOMtjYBgFUMCIxv+PJvefBDY287AaTCpA0cs05MN8NChGg2I0KIZ0ULDgsZmcYnMUYAIASEUUBZTF6eAAAAAASUVORK5CYII=);
-}
-#back:hover
-{
-    background-color: #99FF99;
-}
-#cancel:hover
-{
-    background-color: #FF6600;
+    background:#fff url("../Images/select.png") 50% 50% no-repeat;
 }
 #download:hover
 {
@@ -108,7 +107,6 @@
 }
 .folder:hover,.file:hover,.highlight
 {
-    
     background-color: #BBDDFF;
 }
 .highlight:hover
@@ -131,22 +129,37 @@
 {
     position:relative;
     overflow:auto;
-    margin:10px;
+    padding:10px;
     height:90%;
-    width:98%;
+	width: 100%;
     padding-bottom:10px;
 }
-#fileDetails
-{
+#fileDetails {
     position: absolute;
     display: none;
     font-size: 12px;
-    background-color: #fff;
-    border-radius: 5px;
-    -webkit-box-shadow: 1px 1px 5px #000;
+    background-color: rgba(0,0,0,0.6);
     padding: 5px;
     border-color: #586273;
+	color:#fff;
+	font-family: Droid Sans;
+	margin-left: -50px;
+	pointer-events:none;
 }
+	#fileDetails span {
+		font-weight:bold;
+	}
+	#fileDetails:after {
+		content:"";
+		width: 0px;
+		height: 0px;
+		border-width: 20px;
+		border-style:solid;
+		border-color:  rgba(0,0,0,0.6) transparent transparent transparent;
+		position:absolute;
+		left: 30px;
+		bottom: -40px;
+	}
 #view .contents
 {
     display: inline-block;
@@ -162,21 +175,34 @@
 #downloadProgress
 {
 }
-#addressBar
-{
-    height: 26px;
-    width:800px;
-    border-radius: 5px;
+#addressBar {
+    height: 28px;
+    width:802px;
+    border-radius: 3px;
     position:relative;
-    -webkit-box-shadow:0 0 3px #000;
+    -webkit-box-shadow:inset 1px 1px 4px #000;
     font-family: Arial,Helvetica,Sans Serif;
     font-size: 17px;
-    background-color: #fff;
-    display:inline-block;
-    padding: 0 8px;
+	padding: 0 1px;
+    background-color: #CCC;
+    display:block;
+	float:left;
 }
-#view .downloadDialog
-{
+	#addressBar > * {
+		display:block;
+		margin: 3px 2px;
+		height: 20px;
+		padding-top: 2px;
+		padding-left: 4px;
+		padding-right: 4px;
+		border-radius:2px;
+		background-color:#fff;
+		-webkit-box-shadow: 1px 1px 4px #000;
+	}
+	#addressBar div {
+		z-index: 100;
+	}
+#view .downloadDialog {
     position:absolute;
     -webkit-animation-name: greenPulse;
 	-webkit-animation-duration: 4s;
@@ -198,29 +224,19 @@
     color:#fff;
     text-decoration:none;
 }
-
-#view #addressBar
-{
-}
-#view #addressBar .folderBtn
-{
-    height: 20px;
-    padding: 3px;
+#addressBar .folderBtn {
     display: block;
-    color: #000000;
+    color: #000;
     cursor: pointer;
     float: left;
     overflow:hidden;
 }
-#view #addressBar .folderBtn:hover
-{
-    color: #6699FF;
+#view #addressBar .folderBtn:hover {
+    color: #69f;
 }
 #view .folderDropdown
 {
     width: 9px;
-    height: 20px;
-    padding: 3px;
     background-position: center center;
     display: block;
     float: left;
@@ -231,9 +247,9 @@
 #view .dropdownList
 {
     position: absolute;
-    top: 26px;
+    top: 20px;
     left: 0px;
-    background-color: White;
+    background-color: #fff;
     display: block;
     margin: 0;
     z-index: 1000;
@@ -257,7 +273,7 @@
 }
 #view .dropdownList li:hover
 {
-    background-color: #99CCFF;
+    background-color: #9cf;
 }
 #view .arrow
 {
@@ -266,7 +282,7 @@
 #view .arrowDown
 {
     background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAYAAADEUlfTAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAlSURBVBhXY2AgFzACNf7HpRkkCQLYFDDCJNEVIIvDDcZpBYbVAG9fBAJ/Cjh3AAAAAElFTkSuQmCC);
-    background-color: #FFFFFF;
+    background-color: #fff;
 }
 
 #selection-box
@@ -279,8 +295,9 @@
     padding: 0px;
     margin: 0px;
     z-index:9999;
-    background-color:rgba(40,150,40,0.5);
     border-radius:3px;
+	border:1px dashed #000;
+	pointer-events:none;
 }
 
 @-webkit-keyframes greenPulse
@@ -290,16 +307,52 @@
 		-webkit-box-shadow: 0 0 9px #333;
 	}
 	50% {
-		background-color: #FF6600;
-		-webkit-box-shadow: 0 0 18px #FF6600;
+		background-color: #f60;
+		-webkit-box-shadow: 0 0 18px #f60;
 	}
 	to {
 		background-color: #F7863C;
 		-webkit-box-shadow: 0 0 9px #333;
 	}
 }
-::-webkit-scrollbar {    width: 10px;    height: 10px;    background-color: #FFF;}::-webkit-scrollbar-track-piece  {    background-color: #FFF;    background: -webkit-gradient(linear, right top, left top,color-stop(0.0, #535353),color-stop(1.0, #777));    -webkit-border-radius: 6px;}:-webkit-scrollbar-button:start:decrement,
-::-webkit-scrollbar-button:end:increment  {    height: 30px;    display: block;    background-color: #FAA;}::-webkit-scrollbar-thumb:vertical {    height: 50px;    background: -webkit-gradient(linear, right top, left top,color-stop(0.0, #DDD),color-stop(1.0, #EEE));    border: 1px solid #E5ECFF;    -webkit-border-radius: 6px;}::selection
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+    background-color: #FFF;
+}
+::-webkit-scrollbar-track-piece  {
+    background-color: #FFF;
+    background: -webkit-gradient(linear, right top, left top,color-stop(0.0, #535353),color-stop(1.0, #777));
+    -webkit-border-radius: 6px;
+}
+:-webkit-scrollbar-button:start:decrement,
+::-webkit-scrollbar-button:end:increment  {
+    height: 30px;
+    display: block;
+    background-color: #FAA;
+}
+::-webkit-scrollbar-thumb:vertical {
+    height: 50px;
+    background: -webkit-gradient(linear, right top, left top,color-stop(0.0, #DDD),color-stop(1.0, #EEE));
+    border: 1px solid #E5ECFF;
+    -webkit-border-radius: 6px;
+}
+::selection
 {
     background: rgba(00,00,00,0);
 }
+
+@font-face {
+  font-family: 'Droid Sans';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Droid Sans'), local('DroidSans'), url('/Styles/Fonts/DroidSans.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Droid Sans';
+  font-style: normal;
+  font-weight: bold;
+  src: local('Droid Sans'), local('DroidSans'), url('/Styles/Fonts/DroidSans-Bold.ttf') format('truetype');
+}
+
+

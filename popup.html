@@ -1,60 +1,40 @@
 ﻿<html>
 <head>
     <title>Popup</title>
+    <link rel="Stylesheet" type="text/css" href="Styles/common.css" />
     <link rel="Stylesheet" type="text/css" href="Styles/popup.css" />
     <script type="text/javascript" src="scripts/dextend.js"></script>
     <script type="text/javascript" src="scripts/common.js"></script>
     <script type="text/javascript" src="scripts/history.js"></script>
+</head>
+<body>
+    <div id="current"></div>
+    <div id="history"></div>
     <script type="text/javascript">
         var bg = chrome.extension.getBackgroundPage();
         var zipySplit = bg.zipySplit;
-        function init() {
-            update();
-            setInterval(update, 100);
-        }
-        function update() {
-            var fileCount = 0;
-            for (var file in zipySplit.zipFiles) {
-                fileCount++;
-                var curFile = zipySplit.zipFiles[file];
-                var download = document.getElementById(file);
-                if (!download) {
-                    download = document.createElement("div");
-                    download.innerHTML = "<h1 class='filename'>" + curFile.filename + "</h1><div class='hidden progress'><progress value='0' max='100'></progress><div class='btn pause'></div></div><p title='" + curFile.url + "' class='url'>" + (curFile.url.length > 35 ? curFile.url.substring(0, 35)+"..." : curFile.url) + "</p>";
-                    download.id = file;
-                    download.addClass("download");
-                    if (fileCount > 1) {
-                        download.addClass("separate");
-                    }
-                    var pause = download.querySelector(".pause");
-                    pause.onclick = function () {
-                        var zipFile = zipySplit.zipFiles[file];
-                        if (zipFile.status == DownloadStatus.downloading) {
-                            this.swapClass("pause", "resume");
-                            zipFile.pauseDownload(zipySplit.plugin);
-                        }
-                        else if (zipFile.status == DownloadStatus.paused) {
-                            this.swapClass("resume", "pause");
-                            zipFile.resumeDownload(zipySplit.plugin);
-                        }
-                    };
-                    document.getElementById("current").appendChild(download);
-                }
-                var progElem = download.querySelector("progress");
 
-                if (curFile.status == DownloadStatus.downloading || curFile.status == DownloadStatus.paused) {
-                    progElem.value = curFile.getProgress(zipySplit.plugin);
-                    download.querySelector(".progress").removeClass("hidden");
-                }
-                else if (curFile.status == DownloadStatus.finished) {
-                    download.querySelector(".progress").addClass("hidden");
-                }
-            }
+        function ZipProgress(zipfile) {
+            this.zipfile = zipfile;
+            this.title = dextend.h1({
+                textContent: this.zipfile.filename
+            });
+            this.element = dextend.div({
+                className: "zip-progress"
+            });
+            this.progress = dextend.progress({
+                max: 100,
+                min: 0
+            }); 
         }
+        ZipProgress.prototype.update = function () {
+            
+        }
+
+        (function () {
+            setInterval(update, 100);
+        })();
     </script>
-</head>
-<body onload="init();">
-    <div id="current"></div>
-    <div id="history"></div>
 </body>
 </html>
+

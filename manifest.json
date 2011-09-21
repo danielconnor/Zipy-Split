@@ -14,9 +14,6 @@
 		"48": "Images/zipysplit_48.png",
 		"128": "Images/zipysplit_128.png" 
 	},
-	"plugins": [
-    { "path": "npruntime.dll"}
-	  ],
 	"permissions": [
 		"unlimited_storage",
 		"http://*/*", 

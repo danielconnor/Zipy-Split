@@ -1,27 +1,14 @@
 body
 {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Droid Sans;
 }
 h1
 {
-    margin-left: 5%;
-    font-size: 50px;
-    text-shadow: 1px 1px 0 #fff;
-    color: #404040;
-}
-input
-{
-    display: inline-block;
-    -webkit-border-radius: 3px;
-    border-style: none;
-    outline-color: #66CCFF;
-    /*outline-style:none;*/
-    padding: 3px;
-    -webkit-box-shadow: 0 0px 1px #555555;
-}
-input:focus
-{
-    -webkit-box-shadow: 0 0px 10px #66CCFF;
+	font-size:100px;
+	font-family: Droid Sans;
+	font-size: 40px;
+	color: #888;
+	text-shadow: -1px -1px 1px #000;
 }
 label
 {
@@ -34,19 +21,101 @@ input, label
 {
     margin-top: 5px;
 }
-.warning
-{
-    background-image: url("warning.png");
-    width: 24px;
-    height: 20px;
-    display: inline-block;
-    background-repeat: no-repeat;
+.toggle-button {
+    width:56px;
+    height:22px;
+	border-radius: 3px;
+    box-shadow: inset 1px 1px 3px #000;
+    margin:0 1px;
+    display:inline-block;
+    cursor:pointer;
+    background-color: #ccc;
+	position: relative;
+	padding-top: 6px;
+	font-family:Droid Sans;
+	font-size: 15px;
+	text-align:center;
 }
-
-
-
-
-
+	.toggle-button:after {
+		content: "";
+		background-color:#fff;
+		box-shadow: 1px 1px 4px #000;
+		top: 50%;
+		margin-top: -11px;
+		height: 22px;
+		width: 24px;
+		border-radius: 2px;
+		display:block;
+		position:absolute;
+		-webkit-transition: all 0.6s ease-out;
+	}
+.toggle-button.on {
+	background-color:#0C0;
+}
+	.toggle-button.on:after {
+		left: 29px;
+	}
+.toggle-button.off {
+	background-color:#C03;
+}
+	.toggle-button.off:after {
+		left: 3px;
+	}
+li {
+	list-style:none;
+	width: 300px;
+	position:relative;
+	margin: 10px 0;
+}
+	li span {
+		width: 150px;
+		display:inline-block;
+		height: 28px;
+	}
+	
+#keyboard-shortcut {
+}
+		#keyboard-shortcut li > div{
+			position:absolute;
+			right: 0;
+			top: -2px;
+			display:inline-block;
+			width: 150px;
+			height: 22px;
+		}
+			#keyboard-shortcut li > div input[type=text] {
+				position:absolute;
+				width: 100%;
+				height:100%;
+				outline:none;
+				border:none;
+				margin:0;
+				padding:0;
+				cursor:pointer;
+			}
+			#keyboard-shortcut li > div .display {
+				width: 100%;
+				height: 100%;
+				position:absolute;
+			    pointer-events: none;
+				background-color:#fff;
+			}
+				#keyboard-shortcut li > div div.display .key{
+					padding-top: 2px;
+					padding-left: 6px;
+					padding-right: 6px;
+					padding-bottom: 2px;
+					display: inline-block;
+					margin: 2px;
+					-webkit-box-shadow: 0 0 4px #000;
+					-webkit-border-radius: 3px;
+					font-family: Arial, Helvetica, sans-serif;
+					font-size: 14px;
+					color: #000000;
+					background-color: #FFFFFF;
+					text-align: center;
+					cursor:pointer;
+				}
 
 
 

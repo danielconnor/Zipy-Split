@@ -1,0 +1,109 @@
+body {
+	margin:0;
+	padding: 0;
+	overflow:hidden;
+}
+#oops {
+	postion:absolute;
+	opacity: 0.2;
+	font-family:Droid Sans;
+	-webkit-transition: opacity 0.3s ease-out;
+	text-align:center;
+	margin: 3px;
+	width: 100px;
+	cursor:pointer;
+	font-size: 11px;
+}
+	#oops:first-letter {
+		font-size: 20px;
+	}
+	#oops:hover {
+		opacity:1;
+	}
+section {
+	display:block;
+	position:absolute;
+	left: 50%;
+	width: 60%;
+	height: 200px;
+	margin-left: -30%;
+	margin-top: -200px;
+	text-align:center;
+	-webkit-transition: top 0.7s linear;
+}
+section.waiting {
+	top: -100%;
+}
+section.active {
+	top: 50%;
+}
+section.finished {
+	top: 200%;
+}
+	section .question {
+		font-size:36px;
+		font-family: Droid Sans;
+		font-size: 40px;
+		color: #888;
+		text-shadow: -1px -1px 1px #000;
+	}
+	section .button {
+		display:inline-block;
+		border:none;
+		font-family: Droid Sans;
+		font-weight:bold;
+		font-size: 20px;
+		padding: 10px;
+		width: 130px;
+		margin: 5px;
+		cursor:pointer;
+		border-radius: 4px;
+		position:relative;
+		box-shadow: inset 1px 1px 6px #000;
+		overflow:hidden;
+		text-shadow: -1px -1px 0 #000;
+		color:#fff;
+	}
+		section .button:after {
+			content:"";
+			position:absolute;
+			display:block;
+			height: 36px;
+			margin-top: -18px;
+			width: 140px;
+			margin-left: -70px;
+			box-shadow: 1px 1px 5px #000;
+			z-index: 1000;
+			top:50%;
+			left:50%;
+			border-radius: 3px;
+		}
+		section .button:hover {
+		}
+		section .button:hover:after {
+			box-shadow: 1px 1px 2px #000;
+		}
+
+	section .ok.button {
+		background-color:#3C0;
+	}
+	section .yes.button {
+		background-color:#3cf;
+	}
+	section .no.button {
+		background-color:#F30;
+	}
+
+@font-face {
+  font-family: 'Droid Sans';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Droid Sans'), local('DroidSans'), url('/Styles/Fonts/DroidSans.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Droid Sans';
+  font-style: normal;
+  font-weight: bold;
+  src: local('Droid Sans'), local('DroidSans'), url('/Styles/Fonts/DroidSans-Bold.ttf') format('truetype');
+}
+

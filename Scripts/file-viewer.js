@@ -1,16 +1,24 @@
-var source = "zip-file.js"; // for error handling
-
 //file browser for browsing zip files
-function fileBrowser(file, onDownload, callback) {
+function fileBrowser(file, download, callback) {
     var that = this;
 
     var contentSuffix = "~contents";
     this.currentFolder = '/';
-    this.onDownload = onDownload;
+    this.download = download;
     var rootFolder = this.currentFolder + contentSuffix;
     this.filesToDownload = [];
     this.history = [];
     this.file = file;
+	
+	var mouse = {
+		x:0,
+		y:0
+	}
+	
+	document.addEventListener("mousemove",function(e){
+		mouse.x = e.clientX;
+		mouse.y = e.clientY;
+	},true);
 
     this.generateFileStructure = function () {
         for (i in file.files) {
@@ -20,20 +28,33 @@ function fileBrowser(file, onDownload, callback) {
                 //fileName[p].length > 0 - need to check this because the path 
                 //has '/' at start and end so split will return empty strings
                 if (fileName[p].length > 0 && document.getElementById(fileName[p]) === null) {
-                    var type, extension, name, parent, currentFile, contents;
+                    var type, extension, name, parent, currentFile;
                     if (p == 0) {
                         parent = document.getElementById(rootFolder);
                     }
                     else {
                         parent = document.getElementById(currentFolderName + contentSuffix);
                     }
-                    currentFile = document.createElement('div');
+                    currentFile = dextend.div({
+						onmouseover: function (e) {
+							var evt = e;
+							var curthat = this;
+							that.tooltipTimeout = setTimeout(function () {
+								showFileDetails(evt, curthat);
+							}, 1000);
+						},
+						onmouseout: function (e) {
+							clearTimeout(that.tooltipTimeout);
+							that.hideFileDetails();
+						}
+				  });
+										
                     if (p == fileName.length - 1 && file.files[i].fileName[file.files[i].fileName.length - 1] != '/') {
                         currentFile.id = currentFolderName + fileName[p];
                         type = 'file';
                         var dot = fileName[p].lastIndexOf('.');
                         extension = dot > 0 ? fileName[p].substr(dot + 1) : '<br/>';
-                        extension = extension.length > 5 ? extension.substr(0, 3) + '...' : extension;
+                        extension = extension.shorten(5);
                         name = dot > 0 ? fileName[p].substring(0, dot) : fileName[p];
                     }
                     else {
@@ -48,34 +69,24 @@ function fileBrowser(file, onDownload, callback) {
                     }
                     currentFile.className = type;
 
-                    currentFile.innerHTML = extension + "<p class='filename'>" + (name.length > 12 ? name.substr(0, 10) + '...' : name) + "</p>";
+                    currentFile.innerHTML = extension + "<p class='filename'>" + name.shorten(12) + "</p>";
                     if (parent != null) {
                         parent.appendChild(currentFile);
                         if (type === 'folder') {
                             currentFile.onclick = function () {
-                                that.openFolder(this.id);
+                                that.openFolder(this.id,true);
                             }
-                            contents = document.createElement('div');
-                            contents.id = currentFolderName + contentSuffix;
-                            contents.className = "contents";
-                            parent.appendChild(contents);
+                            parent.appendChild(new dextend.div({
+                            	id: currentFolderName + contentSuffix,
+                            	className: "contents"
+							}));
                         }
-                        else if (type == 'file') {
+                        else {
                             currentFile.innerHTML += "<input name='" + i + "' type='hidden'></input>";
-                            currentFile.onclick = function () {
+                            currentFile.onclick = function (e) {
                                 that.toggleSelectFile(this);
+								e.stopPropagation();
                             };
-                        }
-                        currentFile.onmouseover = function (e) {
-                            var evt = e;
-                            var curthat = this;
-                            that.tooltipTimeout = setTimeout(function () {
-                                that.showFileDetails(evt, curthat);
-                            }, 1000);
-                        }
-                        currentFile.onmouseout = function () {
-                            clearTimeout(that.tooltipTimeout);
-                            that.hideFileDetails();
                         }
                     }
                 }
@@ -86,10 +97,8 @@ function fileBrowser(file, onDownload, callback) {
         var view = document.getElementById("view");
         var downloadBtn = document.getElementById('download');
         downloadBtn.onclick = function () {
-            that.onDownload();
+            that.download();
         }
-        var cancelBtn = document.getElementById('cancel');
-        cancelBtn.onclick = this.closeView;
         var upBtn = document.getElementById('up');
         upBtn.onclick = function () {
             that.openFolder(that.getParentFolder(that.currentFolder));
@@ -98,36 +107,27 @@ function fileBrowser(file, onDownload, callback) {
         selectBtn.onclick = function () {
             that.selectFolder(that.currentFolder);
         }
-        var backBtn = document.getElementById('back');
-        backBtn.onclick = function () {
-            if (that.history.length) {
-                that.openFolder(that.history.pop());
-                that.openFolder(that.history.pop());
-            }
-        }
         return view;
     }
-    this.showFileDetails = function (e, file) {
+    var showFileDetails = function (e, file) {
         var type = file.hasClass("folder") ? "folder" : "file";
         var name = file.getElementsByClassName("filename")[0].innerText;
         if (type === "folder") {
-
+			//TODO:show info about folders
         }
         else {
             var fileHeader = that.file.files[file.lastChild.name];
             var fileTime = new time(fileHeader.lastModTime);
             var fileDate = new date(fileHeader.lastModDate);
             var detailsTooltip = document.getElementById("fileDetails");
-            detailsTooltip.innerHTML = "<b>File Name:</b>" + fileHeader.fileName + "<br/>" +
-                                    "<b>Last Modified:</b> " + fileDate.days + "/" + fileDate.months + "/" + fileDate.years + " " + fileTime.hours + ":" + fileTime.minutes + ":" + fileTime.seconds + "<br/>" +
-                                    "<b>Compressed Size:</b> " + convertSize(fileHeader.compressedSize) + "<br/>" +
-                                    "<b>Uncompressed Size:</b> " + convertSize(fileHeader.unCompressedSize) + "<br/>" +
-                                    "<b>Compression Method:</b> " + compressionMethods[fileHeader.compressionMethod];
-            detailsTooltip.style.left = (e.pageX + 20) + "px";
-            detailsTooltip.style.top = (e.pageY + 20) + "px";
+            detailsTooltip.innerHTML = "<span>File Name:</span>" + fileHeader.fileName + "<br/>" +
+                                    "<span>Last Modified:</span> " + fileDate.days + "/" + fileDate.months + "/" + fileDate.years + " " + fileTime.hours + ":" + fileTime.minutes + ":" + fileTime.seconds + "<br/>" +
+                                    "<span>Compressed Size:</span> " + convertSize(fileHeader.compressedSize) + "<br/>" +
+                                    "<span>Uncompressed Size:</span> " + convertSize(fileHeader.unCompressedSize) + "<br/>" +
+                                    "<span>Compression Method:</span> " + compressionMethods[fileHeader.compressionMethod];
+            detailsTooltip.style.left = (mouse.x) + "px";
+            detailsTooltip.style.top = (mouse.y - 100) + "px";
             detailsTooltip.style.display = "block";
-            if (that.tooltipTimeout) clearTimeout(that.tooltipTimeout);
-            that.tooltipTimeout = setTimeout(that.hideFileDetails, 5000);
         }
     }
     this.hideFileDetails = function () {
@@ -136,16 +136,18 @@ function fileBrowser(file, onDownload, callback) {
     this.closeView = function () {
         window.close();
     }
-    this.openFolder = function (folderName) {
-        if (folderName == that.currentFolder || !folderName) {
+    this.openFolder = function (folderName,pushstate) {
+        if (folderName == that.currentFolder || !folderName || !document.getElementById(folderName + contentSuffix)) {
             return;
         }
 
         ////////////////////////////////////////////////////////////////////////
         sessionStorage.folder = folderName;
         ////////////////////////////////////////////////////////////////////////
+        
+        
+        pushstate && history.pushState(true,null,window.location.pathname + "#" + folderName);
 
-        that.history.push(folderName);
         document.getElementById(folderName + contentSuffix).children.each(function () {
             this.style.display = "inline-block";
         });
@@ -259,31 +261,20 @@ function fileBrowser(file, onDownload, callback) {
     this.showLoaded = function (name) {
         document.getElementsByName(name)[0].parentElement.addClass("loaded");
     }
-    this.showDownload = function (file) {
-        var downloadDialog = document.createElement("div");
-        downloadDialog.className = "downloadDialog";
-        downloadDialog.innerHTML = "<a href='data:application/zip;base64," + btoa(file) + "' >Your file is ready to download.<br>Right click on this dialog and select Save link as..</a>";
-        that.view.appendChild(downloadDialog);
-    }
+
 
     //initialize the view
     this.view = this.createView();
     this.generateFileStructure();
     this.dragSelect = new dragSelect(this);
     this.keyHandler = new keyHandler({
-        "select_all": function () {
+        "selectAll": function () {
             that.selectFolder(that.currentFolder);
         },
-        "up_a_level": function () {
+        "parentDirectory": function () {
             that.openFolder(that.getParentFolder(that.currentFolder));
         },
-        "back": function () {
-            if (that.history.length) {
-                that.openFolder(that.history.pop());
-                that.openFolder(that.history.pop());
-            }
-        },
-        "download": function () {
+        "downloadFiles": function () {
             that.onDownload();
         },
         "close": function () {
@@ -291,6 +282,13 @@ function fileBrowser(file, onDownload, callback) {
         }
     });
     this.addressBar = new addressBar(this, document.getElementById("addressBar"));
+
+    window.addEventListener("popstate", function () {
+        that.openFolder(window.decodeURIComponent(window.location.hash).substr(1));
+    });
+
+    window.history.replaceState(true, null, window.location.pathname + "#/");
+
     if (callback)
         callback(this);
 }
@@ -339,7 +337,7 @@ function addressBar(folderView, bar) {
         var folders = dropdown.firstChild.childNodes;
         for (var i = 0; i < folders.length; i++) {
             folders[i].onclick = function () {
-                folderView.openFolder(this.lastChild.value);
+                folderView.openFolder(this.lastChild.value,true);
             }
         }
     }
@@ -394,8 +392,9 @@ function dragSelect(fileBrowser) {
         }
         else {
             that.dragging = true;
-            that.box = document.createElement("div");
-            that.box.id = boxId;
+            that.box = new dextend.div({
+            	id: boxId
+			});
             that.view.appendChild(that.box);
             that.updateBoxPosition(evt.x - this.offsetLeft, evt.y - this.offsetTop);
         }

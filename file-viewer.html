@@ -30,6 +30,10 @@
                             createBrowser(request.file);
                             progress.stop();
                             break;
+						case "fileLoad":
+							browser.showLoaded(request.fileIndex);
+							break;
+						
                     }
                 });
             }
@@ -60,7 +64,7 @@
         }
     </script>
 </head>
-<body onload="onload();">
+<body onLoad="onload();">
     <div id="view">
         <div id='tools'>
             <div id='addressBar'>
@@ -68,11 +72,7 @@
             <div id='viewOptions'>
                 <div class='btn' id='up' title='Up a level'>
                 </div>
-                <div class='btn' id='back' title='back'>
-                </div>
                 <div class='btn' id='select' title='Select all files'>
-                </div>
-                <div class='btn' id='cancel' title='cancel'>
                 </div>
                 <div class='btn' id='download' title='download'>
                 </div>

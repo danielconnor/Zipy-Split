@@ -167,12 +167,12 @@ function littleToBigEndian(start, length, data) {
 };
 
 function bigToLittleEndian(data) {
-    var hex = [];
+	var hex = "";
     if (data.length % 2 != 0) {
         data = "0" + data;
     }
     for (var i = data.length - 2, p = 0; i >= 0; i -= 2, p++) {
-        hex[p] = data[i] + data[i + 1];
+        hex += data[i] + data[i + 1];
     }
     return hex;
 }
